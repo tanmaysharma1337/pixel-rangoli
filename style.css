@@ -8,9 +8,16 @@ body
     font-family: PixelFont
 }
 
-.right-container table td
+
+.grid-visibility td
 {
     border: 1px solid black;
+    width: 19px !important; 
+    height: 19px !important;
+}
+
+.right-container table td
+{
     width: 20px;
     height: 20px;
 }
@@ -29,6 +36,23 @@ header
     height: 120px;
     border-radius: 20px;
     margin-bottom: 20px;
+}
+
+footer
+{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 20px;
+    position: absolute;
+    bottom: 0px;
+    border: 1px solid black;
+}
+
+#application-heading
+{
+    text-shadow: 2px 2px 2px black;
 }
 
 header h1
@@ -84,25 +108,31 @@ header h1
 .color-pellete
 {
     display: flex;
-    justify-content: space-around;
+    justify-content: center;
     align-items: center;
-
     height: 10%;
     margin: 40px;
     border-radius: 10px;
     background-color: rgb(243, 215, 202);
 }
 
-.tools-icons
+
+
+.tools-icons 
 {
     display: flex;
-    justify-content: space-around;
+    justify-content: center;
     align-items: center;
     height: 10%;
     margin: 40px;
     border-radius: 10px;
     background-color: rgb(243, 215, 202);
     cursor: pointer;
+}
+
+.color-pellete * , .tools-icons *
+{
+    margin: 10px;
 }
 
 .tools-icons img
