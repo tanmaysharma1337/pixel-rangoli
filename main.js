@@ -1,7 +1,9 @@
-let selectedPencilColor = "orange";
+let selectedPencilColor = "black";
 let mouseEvent = null;
 
 function initDrawingBoard(width, height) {
+  const boardContainer = document.querySelector(".right-container")
+  boardContainer.innText = "";
   let grid = document.createElement("table");
   let gridBody = document.createElement("tbody");
   grid.appendChild(gridBody);
@@ -13,7 +15,7 @@ function initDrawingBoard(width, height) {
     }
     gridBody.appendChild(gridRow);
   }
-  document.body.appendChild(grid);
+  boardContainer.appendChild(grid);
   function addWindowEventListeners() {
     window.addEventListener("mousedown", (e) => {
       e.preventDefault();
@@ -33,4 +35,15 @@ function drawPixelOnClick(event) {
   }
 }
 
+function initTools()
+{
+  document.getElementById("color-picker").addEventListener("change",function (){
+    selectedPencilColor = this.value
+  })
+  document.getElementById("eraser-tool").addEventListener("click",function (){
+    selectedPencilColor = "white"
+  })
+}
+
 initDrawingBoard(20, 20);
+initTools()
