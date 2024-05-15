@@ -1,0 +1,11 @@
+body table td
+{
+    border: 1px solid black;
+    width: 20px;
+    height: 20px;
+}
+body table
+{
+    table-layout: fixed;
+    border-collapse:collapse;
+}
