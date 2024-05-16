@@ -5,13 +5,14 @@
 
 body
 {
-    font-family: PixelFont
+    font-family: PixelFont;
+    background-color: white;
 }
 
 
 .grid-visibility td
 {
-    border: 1px solid black;
+    border: 1px solid gray;
     width: 19px !important; 
     height: 19px !important;
 }
@@ -23,6 +24,7 @@ body
 }
 .right-container table
 {
+    touch-action: none;
     table-layout: fixed;
     border-collapse:collapse;
 }
@@ -38,6 +40,12 @@ header
     margin-bottom: 20px;
 }
 
+#header-container
+{
+    text-align: center;
+}
+
+
 footer
 {
     display: flex;
@@ -45,9 +53,11 @@ footer
     align-items: center;
     width: 100%;
     height: 20px;
-    position: absolute;
     bottom: 0px;
-    border: 1px solid black;
+    left: 0px;
+    border-top: 1px solid black;
+    position: fixed;
+    background-color: white;
 }
 
 #application-heading
@@ -57,13 +67,20 @@ footer
 
 header h1
 {
-    font-size: 80px;
+    font-size: 70px;
+    margin: 0px;
+}
+
+header h4
+{
+    margin: 0px;
 }
 
 #main-content
 {
     display: flex;
     justify-content: center;
+    align-items: center;
 }
 .left-container
 {
@@ -71,13 +88,28 @@ header h1
     width: 20%;
     height: 100%;
     border-radius: 20px;
-    height: 500px;
+    height: 550px;
 }
+.left-container input[type="color"]
+{
+    height: 20px;
+    width: 20px;
+}
+
+.left-container select , .left-container option{
+    font-family: PixelFont;
+    font-weight: bold;
+    height: 20px;
+}
+
 .right-container
 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     width: 70%;
     margin-left: 40px;
-    height: 500px;
+    height: 550px;
     border-radius: 20px;
 }
 
@@ -91,8 +123,6 @@ header h1
 {
     display: flex;
     justify-content: center;
-    margin-top: 20px;
-    margin-top: 2%;
 
 }
 
@@ -105,16 +135,6 @@ header h1
 
 /* Container Items Stylings */
 
-.color-pellete
-{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 10%;
-    margin: 40px;
-    border-radius: 10px;
-    background-color: rgb(243, 215, 202);
-}
 
 
 
@@ -123,14 +143,14 @@ header h1
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 10%;
+    height: 8%;
     margin: 40px;
     border-radius: 10px;
     background-color: rgb(243, 215, 202);
     cursor: pointer;
 }
 
-.color-pellete * , .tools-icons *
+.tools-icons *
 {
     margin: 10px;
 }
@@ -138,4 +158,51 @@ header h1
 .tools-icons img
 {
     width: 40px;
+}
+
+@media only screen and (max-width: 600px) {
+    #main-content
+    {
+        display: block;
+    }
+    .left-container
+    {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-wrap: wrap;
+        font-size: 8px;
+        width: 100%;
+        height: 100%;
+        margin-bottom: 20px;
+    }
+    header h1
+    {
+        font-size: 40px;
+    }
+    .tools-icons
+    {
+        margin: 10px;
+        height: 20px;
+        padding: 5px;
+        width: 90px;
+    }
+    #grid-size-tool-container
+    {
+        display: none;
+    }
+
+    .left-container input[type="color"]
+    {
+        width: 40px;
+        height: 12px;
+        padding: 0px;
+        border: none;
+    }
+    .right-container
+    {
+        width: 100%;
+        margin-left: 0px;
+        height: 100%;
+    }
 }

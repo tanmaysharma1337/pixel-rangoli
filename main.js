@@ -4,6 +4,13 @@ let isSymmetryOn = false; // Drawing symmetry
 let isEraserOn = false;
 let isGridVisible = true;
 let lastBackgroundColor = "white";
+let hasTouchScreen = false;
+
+if ("maxTouchPoints" in navigator) {
+    hasTouchScreen = navigator.maxTouchPoints > 0;
+} 
+
+
 
 
 //Randomize Application Header Text Colors
@@ -23,7 +30,7 @@ function randomizeHeaderTextColor()
 // Initialize Drawing board grid
 function initDrawingBoard(width, height) {
   const boardContainer = document.querySelector(".right-container");
-  boardContainer.innText = "";
+  boardContainer.innerText = "";
   let grid = document.createElement("table");
   let gridBody = document.createElement("tbody");
   gridBody.classList.add("grid-body-container");
@@ -40,13 +47,31 @@ function initDrawingBoard(width, height) {
   }
   boardContainer.appendChild(grid);
   function addWindowEventListeners() {
-    window.addEventListener("mousedown", (e) => {
-      e.preventDefault();
-      window.addEventListener("mousemove", drawPixelOnClick, false);
-    });
-    window.addEventListener("mouseup", () => {
-      window.removeEventListener("mousemove", drawPixelOnClick, false);
-    });
+    if(hasTouchScreen)
+      {
+        window.addEventListener("touchstart", (e) => {
+          if (e.target.tagName == "TD") {
+            e.preventDefault();
+          }
+          window.addEventListener("touchmove", drawPixelOnTouch, false);
+        });
+        window.addEventListener("touchend", () => {
+          window.removeEventListener("touchmove", drawPixelOnTouch, false);
+        });
+      }
+    else
+    {
+      window.addEventListener("mousedown", (e) => {
+        if (e.target.tagName == "TD") {
+          e.preventDefault();
+        }
+        window.addEventListener("mousemove", drawPixelOnClick, false);
+      });
+      window.addEventListener("mouseup", () => {
+        window.removeEventListener("mousemove", drawPixelOnClick, false);
+      });
+    }
+    
   }
   addWindowEventListeners();
 }
@@ -65,11 +90,11 @@ function initTools() {
   document.getElementById("eraser-tool").addEventListener("click", function () {
     if (isEraserOn) {
       isEraserOn = false;
-      this.innerText = "Eraser : Off";
+      this.querySelector("#toggle-status").innerText = "Off";
       selectedPencilColor = document.getElementById("color-picker").value;
     } else {
       isEraserOn = true;
-      this.innerText = "Eraser : On";
+      this.querySelector("#toggle-status").innerText = "On";
       selectedPencilColor = "white";
     }
   });
@@ -78,10 +103,10 @@ function initTools() {
     .addEventListener("click", function () {
       if (isSymmetryOn) {
         isSymmetryOn = false;
-        this.innerText = "Symmetry : Off";
+        this.querySelector("#toggle-status").innerText = "Off";
       } else {
         isSymmetryOn = true;
-        this.innerText = "Symmetry : On";
+        this.querySelector("#toggle-status").innerText = "On";
       }
     });
   document
@@ -89,13 +114,13 @@ function initTools() {
     .addEventListener("click", function () {
       if (isGridVisible) {
         isGridVisible = false;
-        this.innerText = "Grid Visibility : Off";
+        this.querySelector("#toggle-status").innerText = "Off";
         document
           .querySelector(".grid-body-container")
           .classList.remove("grid-visibility");
       } else {
         isGridVisible = true;
-        this.innerText = "Grid Visibility : On";
+        this.querySelector("#toggle-status").innerText = "On";
         document
         .querySelector(".grid-body-container")
           .classList.add("grid-visibility");
@@ -107,9 +132,15 @@ function initTools() {
       const gridBodyContainer = document.querySelector(
         ".grid-body-container"
       ).childNodes;
+
+      const color = this.value
+      const r = parseInt(color.substr(1,2), 16)
+      const g = parseInt(color.substr(3,2), 16)
+      const b = parseInt(color.substr(5,2), 16)
+      const hexToRGBColor = "rgb("+r+", "+g+", "+b+")"
+
       for (let i = 0; i < gridBodyContainer.length; i++) {
         for (let j = 0; j < gridBodyContainer[i].childNodes.length; j++) {
-          console.log(gridBodyContainer[i].childNodes[j].style.backgroundColor);
           if (
             gridBodyContainer[i].childNodes[j].style.backgroundColor ==
               lastBackgroundColor ||
@@ -120,9 +151,13 @@ function initTools() {
           }
         }
       }
-      lastBackgroundColor = this.value;
-      console.log(lastBackgroundColor);
+      lastBackgroundColor = hexToRGBColor;
     });
+
+    document.getElementById("grid-size-tool").addEventListener("change",function(){
+      const selectedGridSize = this.value.split("x")
+      initDrawingBoard(Number(selectedGridSize[0]), Number(selectedGridSize[1]));
+    })
 }
 
 // Filling Pixel on grid cell function
@@ -140,8 +175,23 @@ function drawPixelOnClick(event) {
   }
 }
 
-randomizeHeaderTextColor()
-initDrawingBoard(40, 20);
-initTools();
+function drawPixelOnTouch(event) {
+  let target = document.elementFromPoint(event.changedTouches.item(0).clientX,event.changedTouches.item(0).clientY)
 
-setInterval(randomizeHeaderTextColor,200)
+  if (target.tagName == "TD") {
+    // Check if symmetry is on , if its on fill the required target
+    if (isSymmetryOn) {
+      const rowChilds = target.parentNode.childNodes;
+      const targetIndex = target.value;
+      rowChilds[rowChilds.length - targetIndex - 1].style.backgroundColor =
+        selectedPencilColor;
+    }
+    target.style.backgroundColor = selectedPencilColor;
+  }
+}
+
+randomizeHeaderTextColor()
+initDrawingBoard(20, 20);
+initTools();
+setInterval(randomizeHeaderTextColor,400)
+

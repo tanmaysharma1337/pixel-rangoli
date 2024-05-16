@@ -2,22 +2,29 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Pixel Drawing App</title>
     <link rel="stylesheet" href="style.css">
   </head>
   <body>
     <header>
-      <h1 id="application-heading">PIXEL RANGOLI</h1>
+      <div id="header-container"><h1 id="application-heading">PIXEL RANGOLI</h1><h4>Pixelize Your Passion for Art</h4></div>
     </header>
     <div id="main-content">
     <div class="left-container">
-    <div class="color-pellete">Pencil Color : <input type="color" name="color-picker" id="color-picker"> </div>
-    <div class="tools-icons" id="eraser-tool">Eraser : Off</div>
-    <div class="tools-icons" id="symmetry-tool">Symmetry : Off</div>
-    <div class="tools-icons" id="grid-visibility-tool">Grid Visibility : On</div>
+
     <div class="tools-icons" id="background-color">Background Color : <input type="color" name="background-color-picker" id="background-color-picker"></div>
+    <div class="tools-icons">Pencil Color : <input type="color" name="color-picker" id="color-picker"> </div>
+    <div class="tools-icons" id="eraser-tool"> Eraser : <span id="toggle-status">Off</span></div>
+    <div class="tools-icons" id="symmetry-tool">Symmetry : <span id="toggle-status">Off</span></div>
+    <div class="tools-icons" id="grid-visibility-tool">Grid Visibility : <span id="toggle-status">On</span></div>
+    <div class="tools-icons" id="grid-size-tool-container" >Grid size : <select id="grid-size-tool">
+      <option value="10x10">10x10</option>
+      <option value="20x20" selected>20x20</option>
+      <option value="50x20">50x20</option>
+      <option value="40x20">40x20</option>
+    </select></div>
+   
     </div>
     <div class="right-container"></div>
     </div>
