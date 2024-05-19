@@ -62,7 +62,7 @@ Don't forget to give the project a star! Thanks again!
 4. Open a Pull Request
    
 ## License
-Distributed under the MIT License. See MIT License for more information.
+Distributed under the [MIT License](https://opensource.org/license/MIT). See MIT License for more information.
 
 ## Contact
 Project Link: https://github.com/tanmaysharma1337/pixel-rangoli/
